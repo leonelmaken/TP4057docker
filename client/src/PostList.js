@@ -7,7 +7,7 @@ const PostList = () => {
   const [posts, setPosts] = useState({});
 
   const fetchPosts = async () => {
-    const res = await axios.get("http://localhost:4002/posts");
+    const res = await axios.get("http://query-service:80/posts"); // Utilisez le nom du service Kubernetes "query-service"
 
     setPosts(res.data);
   };

@@ -7,7 +7,8 @@ const CommentCreate = ({ postId }) => {
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
+    // Remplacez l'URL vers le service "comments-service" dans Kubernetes
+    await axios.post(`http://cluster-ip-service/comments-service/posts/${postId}/comments`, {
       content,
     });
 
@@ -32,3 +33,4 @@ const CommentCreate = ({ postId }) => {
 };
 
 export default CommentCreate;
+

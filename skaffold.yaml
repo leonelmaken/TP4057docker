@@ -1,0 +1,16 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+metadata:
+  name: my-app
+build:
+  local:
+    push: false
+deploy:
+  kubectl:
+    manifests:
+    - /home/leonelmaken/Bureau/M1/INF4057/TP4057docker/event-service/service.yaml
+    - /home/leonelmaken/Bureau/M1/INF4057/TP4057docker/posts-service/service.yaml
+    - /home/leonelmaken/Bureau/M1/INF4057/TP4057docker/comments-service/service.yaml
+    - /home/leonelmaken/Bureau/M1/INF4057/TP4057docker/query-service/service.yaml
+    - /home/leonelmaken/Bureau/M1/INF4057/TP4057docker/moderation-service/service.yaml
+

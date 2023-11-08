@@ -1,0 +1,52 @@
+version: '3'
+services:
+
+  event-bus:
+    build: ./event-bus
+    image: leonelmaken/event-bus:latest
+    ports:
+      - "4011:4005"
+
+  posts:
+    depends_on:
+      - event-bus
+    build: ./posts
+    image: leonelmaken/posts:latest
+    ports:
+      - "4007:4000"
+
+  comments:
+    depends_on:
+      - event-bus
+    build: ./comments
+    image: leonelmaken/comments:latest
+    ports:
+      - "4008:4001"
+
+  moderation:
+    depends_on:
+      - event-bus
+    build: ./moderation
+    image: leonelmaken/moderation:latest
+    ports:
+      - "4010:4003"
+
+  query:
+    depends_on:
+      - event-bus
+      - posts
+      - comments
+      - moderation
+    build: ./query
+    image: leonelmaken/query:latest
+    command: ["./wait-for-it.sh", "event-bus:4005", "--", "npm", "start"]
+    ports:
+      - "4009:4002"
+
+  client:
+    depends_on:
+      - query
+    build: ./client
+    image: leonelmaken/client:latest
+    ports:
+      - "3001:3000"
