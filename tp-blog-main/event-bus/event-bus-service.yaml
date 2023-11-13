@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-bus-service
+spec:
+  selector:
+    app: event-pod  # Assurez-vous que le sélecteur correspond à celui de votre pod
+  ports:
+    - protocol: TCP
+      port: 80  # Port exposé par le service LoadBalancer
+      targetPort: 4000  # Port du conteneur dans le pod
+  type: LoadBalancer
+

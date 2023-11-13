@@ -1,0 +1,15 @@
+# event-bus-service.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: comments-service-lb
+spec:
+  type: LoadBalancer
+  selector:
+    app: comments-pod  # Assurez-vous que le sélecteur correspond à celui de votre pod
+  ports:
+    - protocol: TCP
+      port: 80           # Port externe sur le LoadBalancer
+      targetPort: 4001   # Port du service dans le pod
+

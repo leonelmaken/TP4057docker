@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: client-pod
+spec:
+  containers:
+  - name: client-container
+    image: leonelmaken/client-service:latest
+    ports:
+    - containerPort: 3000

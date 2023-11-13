@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-service-lb
+spec:
+  selector:
+    app: client-pod  # Assurez-vous que le label du sélecteur correspond à celui de votre pod
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000  # Port du conteneur dans le pod
+  type: LoadBalancer
+

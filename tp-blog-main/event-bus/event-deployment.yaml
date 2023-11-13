@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-deployment
+spec:
+  replicas: 3  # Vous pouvez ajuster le nombre de réplicas selon vos besoins
+  selector:
+    matchLabels:
+      app: event-pod
+  template:
+    metadata:
+      labels:
+        app: event-pod
+    spec:
+      containers:
+        - name: event-container
+          image: leonelmaken/event-service:latest
+          ports:
+            - containerPort: 4005
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-service
+spec:
+  type: ClusterIP  # Vous pouvez utiliser NodePort ou LoadBalancer en fonction de vos besoins
+  selector:
+    app: event-pod
+  ports:
+    - port: 4005
+      targetPort: 4005
+
