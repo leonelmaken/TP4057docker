@@ -1,0 +1,30 @@
+apiVersion: skaffold/v2beta14
+kind: Config
+build:
+  artifacts:
+    - image: leonelmaken/client-service
+      context: client
+      docker:
+        dockerfile: Dockerfile
+    - image: leonelmaken/comments-service
+      context: comments
+      docker:
+        dockerfile: Dockerfile
+    - image: leonelmaken/event-service
+      context: event-bus
+      docker:
+        dockerfile: Dockerfile
+    - image: leonelmaken/moderation-service
+      context: moderation
+      docker:
+        dockerfile: Dockerfile
+    - image: leonelmaken/posts-service
+      context: posts
+      docker:
+        dockerfile: Dockerfile
+    - image: leonelmaken/query-service
+      context: query
+      docker:
+        dockerfile: Dockerfile
+
+
