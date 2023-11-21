@@ -2,31 +2,36 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: comments-deployment
+  labels:
+    app: comments
 spec:
-  replicas: 3  # Vous pouvez ajuster le nombre de réplicas selon vos besoins
+  replicas: 1
   selector:
     matchLabels:
-      app: comments-pod
+      app: comments
   template:
     metadata:
+      name: comments-pod
       labels:
-        app: comments-pod
+        app: comments
     spec:
       containers:
-        - name: comments-container
-          image: leonelmaken/comments-service:latest
+        - name: comments
+          image: leonelmaken/comments
           ports:
-            - containerPort: 4001
+            - containerPort : 4001
+      restartPolicy: Always
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: comments-service
+  name: comments-clusterip
 spec:
   type: ClusterIP
   selector:
-    app: comments-pod
+    app: comments
   ports:
     - port: 4001
       targetPort: 4001
-

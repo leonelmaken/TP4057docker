@@ -2,30 +2,36 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: moderation-deployment
+  labels:
+    app: moderation
 spec:
-  replicas: 3  # Vous pouvez ajuster le nombre de réplicas selon vos besoins
+  replicas: 1
   selector:
     matchLabels:
-      app: moderation-pod
+      app: moderation
   template:
     metadata:
+      name: moderation-pod
       labels:
-        app: moderation-pod
+        app: moderation
     spec:
       containers:
-        - name: moderation-container
-          image: leonelmaken/moderation-service:latest
+        - name: moderation
+          image: leonelmaken/moderation
           ports:
-            - containerPort: 4003
+            - containerPort : 4003
+      restartPolicy: Always
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: moderation-service
+  name: moderation-clusterip
 spec:
   type: ClusterIP
   selector:
-    app: moderation-pod
+    app: moderation
   ports:
     - port: 4003
       targetPort: 4003

@@ -1,30 +1,60 @@
-apiVersion: skaffold/v2beta14
+apiVersion: skaffold/v4beta3
 kind: Config
+manifests:
+  rawYaml:
+    - ./k8s/*
 build:
+  local:
+    push: false
   artifacts:
-    - image: leonelmaken/client-service
+    - image: leonelmaken/client
       context: client
+      sync:
+        manual:
+          - src: src/**/*.js
+            dest: .
       docker:
         dockerfile: Dockerfile
-    - image: leonelmaken/comments-service
+    - image: leonelmaken/comments
       context: comments
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
       docker:
         dockerfile: Dockerfile
-    - image: leonelmaken/event-service
+    - image: leonelmaken/event-bus
       context: event-bus
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
       docker:
         dockerfile: Dockerfile
-    - image: leonelmaken/moderation-service
+    - image: leonelmaken/moderation
       context: moderation
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
       docker:
         dockerfile: Dockerfile
-    - image: leonelmaken/posts-service
+    - image: leonelmaken/posts
       context: posts
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
       docker:
         dockerfile: Dockerfile
-    - image: leonelmaken/query-service
+    - image: leonelmaken/query
       context: query
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
       docker:
         dockerfile: Dockerfile
-
+deploy:
+  kubectl:
 

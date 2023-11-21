@@ -2,31 +2,36 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: posts-deployment
+  labels:
+    app: posts
 spec:
-  replicas: 3  # Vous pouvez ajuster le nombre de réplicas selon vos besoins
+  replicas: 1
   selector:
     matchLabels:
-      app: posts-pod
+      app: posts
   template:
     metadata:
+      name: posts-pod
       labels:
-        app: posts-pod
+        app: posts
     spec:
       containers:
-        - name: posts-container
-          image: leonelmaken/posts-service:latest
+        - name: posts
+          image: leonelmaken/posts
           ports:
-            - containerPort: 4000
+            - containerPort : 4000
+      restartPolicy: Always
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: posts-service
+  name: posts-clusterip
 spec:
   type: ClusterIP
   selector:
-    app: posts-pod
+    app: posts
   ports:
     - port: 4000
       targetPort: 4000
-

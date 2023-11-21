@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: event-bus
+  labels:
+    app: event-bus
+    rel: stable
+spec:
+  containers:
+    - name: event-bus
+      image: leonelmaken/event-bus
+      ports:
+        - containerPort: 4005
+      resources: {}
+
+

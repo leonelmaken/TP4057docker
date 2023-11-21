@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "start": "nodemon index.js"
-  },
+"scripts": {
+  "start": "nodemon index.js --ignore 'path-to-ignore' --ext js,mjs,json"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
